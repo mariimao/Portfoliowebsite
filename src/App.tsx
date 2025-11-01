@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { Header } from './components/Header';
 import { Home } from './components/Home';
 import { About } from './components/About';
+import { Fun } from './components/Fun';
 import { ProjectDetail } from './components/ProjectDetail';
 import { Footer } from './components/Footer';
 import { CustomCursor } from './components/CustomCursor';
@@ -17,6 +18,7 @@ export default function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/fun" element={<Fun />} />
           <Route path="/about" element={<About />} />
           <Route path="/project/:id" element={<ProjectDetail />} />
           <Route path="*" element={<Navigate to="/" replace />} />

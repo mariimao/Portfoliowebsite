@@ -59,110 +59,88 @@ export function Header() {
       }
     };
 
+    // Initial update
     updatePositions();
+
+    // Update on resize
     window.addEventListener("resize", updatePositions);
-    return () =>
+
+    // Update after fonts load
+    document.fonts.ready.then(updatePositions);
+
+    // Update with a slight delay to ensure DOM is ready
+    const timeoutId = setTimeout(updatePositions, 100);
+
+    return () => {
       window.removeEventListener("resize", updatePositions);
+      clearTimeout(timeoutId);
+    };
   }, []);
+
+  // Recalculate positions when active section or hovered item changes
+  useEffect(() => {
+    const updatePositions = () => {
+      if (navRef.current) {
+        const navRect = navRef.current.getBoundingClientRect();
+        const buttons =
+          navRef.current.querySelectorAll("button");
+        const positions: Record<
+          string,
+          { left: number; width: number }
+        > = {};
+
+        buttons.forEach((button) => {
+          const rect = button.getBoundingClientRect();
+          const id = button.getAttribute("data-section");
+          if (id) {
+            positions[id] = {
+              left: rect.left - navRect.left,
+              width: rect.width,
+            };
+          }
+        });
+
+        setItemPositions(positions);
+      }
+    };
+
+    // Small delay to ensure any style changes have been applied
+    const timeoutId = setTimeout(updatePositions, 50);
+
+    return () => clearTimeout(timeoutId);
+  }, [activeSection, hoveredItem]);
 
   useEffect(() => {
     // Update active section based on current route
-    if (location.pathname === '/about') {
-      setActiveSection('about');
-      return;
+    if (location.pathname === "/about") {
+      setActiveSection("about");
+    } else if (location.pathname === "/fun") {
+      setActiveSection("fun");
+    } else if (location.pathname === "/") {
+      setActiveSection("work");
     }
-
-    const observerOptions = {
-      root: null,
-      rootMargin: "-50% 0px -50% 0px",
-      threshold: 0,
-    };
-
-    const observerCallback = (
-      entries: IntersectionObserverEntry[],
-    ) => {
-      // Find the entry with the highest intersection ratio
-      const intersectingEntries = entries.filter(
-        (entry) => entry.isIntersecting,
-      );
-
-      if (intersectingEntries.length > 0) {
-        // Sort by intersection ratio and pick the most visible one
-        const mostVisible = intersectingEntries.reduce(
-          (prev, current) => {
-            return current.intersectionRatio >
-              prev.intersectionRatio
-              ? current
-              : prev;
-          },
-        );
-
-        setActiveSection(mostVisible.target.id);
-      }
-    };
-
-    const observer = new IntersectionObserver(
-      observerCallback,
-      observerOptions,
-    );
-
-    const sections = ["work", "contact"];
-    sections.forEach((id) => {
-      const element = document.getElementById(id);
-      if (element) {
-        observer.observe(element);
-      }
-    });
-
-    return () => {
-      observer.disconnect();
-    };
   }, [location.pathname]);
 
-  const scrollToSection = (id: string) => {
-    // Immediately update the active section for instant UI feedback
-    setActiveSection(id);
-
-    // If navigating to about, go to the about page
-    if (id === 'about') {
-      navigate('/about');
-      setIsMenuOpen(false);
-      return;
-    }
-
-    if (location.pathname !== "/") {
-      navigate("/");
-      setTimeout(() => {
-        const element = document.getElementById(id);
-        if (element) {
-          const headerOffset = 100;
-          const elementPosition =
-            element.getBoundingClientRect().top;
-          const offsetPosition =
-            elementPosition + window.pageYOffset - headerOffset;
-
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: "smooth",
-          });
-        }
-      }, 100);
-    } else {
-      const element = document.getElementById(id);
-      if (element) {
-        const headerOffset = 100;
-        const elementPosition =
-          element.getBoundingClientRect().top;
-        const offsetPosition =
-          elementPosition + window.pageYOffset - headerOffset;
-
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: "smooth",
-        });
-      }
-    }
+  const handleNavigation = (section: string) => {
+    setActiveSection(section);
     setIsMenuOpen(false);
+
+    if (section === "work") {
+      navigate("/");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else if (section === "fun") {
+      navigate("/fun");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else if (section === "about") {
+      navigate("/about");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else if (section === "resume") {
+      // Replace this URL with your actual resume link
+      window.open(
+        "https://drive.google.com/file/d/1k3NtLbSGEXxbkLD4VlHyWK5ESkiixUV-/view",
+        "_blank",
+      );
+    }
   };
 
   const handleLogoClick = (e: React.MouseEvent) => {
@@ -171,12 +149,13 @@ export function Header() {
   };
 
   return (
-    <header className="fixed top-0 w-full bg-[#fafafa] z-50">
+    <header className="w-full">
       <nav
-        className="px-8 py-4 border-b border-dotted transition-all duration-300"
+        className="px-8 py-4 border-b transition-all duration-300"
         style={{
-          backgroundColor: "#fafafa",
-          borderColor: isScrolled ? "#e5e5e5" : "transparent",
+          borderColor: "#e3dcd3",
+          borderStyle: "dotted",
+          borderWidth: "0 0 0.67px 0",
         }}
       >
         <div className="flex items-center justify-between">
@@ -191,7 +170,7 @@ export function Header() {
                 className="text-[18px]"
                 style={{
                   fontFamily: "var(--font-geist-mono)",
-                  color: "#1a1a1a",
+                  color: "#0b0b0b",
                   fontWeight: "400",
                   textTransform: "uppercase",
                 }}
@@ -211,7 +190,7 @@ export function Header() {
               itemPositions[hoveredItem || activeSection] && (
                 <motion.div
                   layoutId="nav-background"
-                  className="absolute h-[28px] rounded-full bg-[#f0f0f0]"
+                  className="absolute h-[28px] rounded-full bg-[#fffefa] border border-[#e3dcd3]"
                   initial={false}
                   animate={{
                     left: itemPositions[
@@ -235,54 +214,69 @@ export function Header() {
               )}
             <button
               data-section="work"
-              onClick={() => scrollToSection("work")}
+              onClick={() => handleNavigation("work")}
               onMouseEnter={() => setHoveredItem("work")}
               className="text-[13px] tracking-[0.02em] transition-colors uppercase relative z-10 px-3 h-[28px] flex items-center"
               style={{
                 fontFamily: "var(--font-geist-mono)",
                 color:
                   hoveredItem === "work"
-                    ? "#000000"
+                    ? "#0b0b0b"
                     : activeSection === "work"
-                      ? "#4D9DE0"
-                      : "#999",
+                      ? "#214BEB"
+                      : "#9f9f9d",
               }}
             >
               WORK
             </button>
             <button
+              data-section="fun"
+              onClick={() => handleNavigation("fun")}
+              onMouseEnter={() => setHoveredItem("fun")}
+              className="text-[13px] tracking-[0.02em] transition-colors uppercase relative z-10 px-3 h-[28px] flex items-center"
+              style={{
+                fontFamily: "var(--font-geist-mono)",
+                color:
+                  hoveredItem === "fun"
+                    ? "#0b0b0b"
+                    : activeSection === "fun"
+                      ? "#214BEB"
+                      : "#9f9f9d",
+              }}
+            >
+              FUN
+            </button>
+            <button
               data-section="about"
-              onClick={() => scrollToSection("about")}
+              onClick={() => handleNavigation("about")}
               onMouseEnter={() => setHoveredItem("about")}
               className="text-[13px] tracking-[0.02em] transition-colors uppercase relative z-10 px-3 h-[28px] flex items-center"
               style={{
                 fontFamily: "var(--font-geist-mono)",
                 color:
                   hoveredItem === "about"
-                    ? "#000000"
+                    ? "#0b0b0b"
                     : activeSection === "about"
-                      ? "#4D9DE0"
-                      : "#999",
+                      ? "#214BEB"
+                      : "#9f9f9d",
               }}
             >
               ABOUT
             </button>
             <button
-              data-section="contact"
-              onClick={() => scrollToSection("contact")}
-              onMouseEnter={() => setHoveredItem("contact")}
+              data-section="resume"
+              onClick={() => handleNavigation("resume")}
+              onMouseEnter={() => setHoveredItem("resume")}
               className="text-[13px] tracking-[0.02em] transition-colors uppercase relative z-10 px-3 h-[28px] flex items-center"
               style={{
                 fontFamily: "var(--font-geist-mono)",
                 color:
-                  hoveredItem === "contact"
-                    ? "#000000"
-                    : activeSection === "contact"
-                      ? "#4D9DE0"
-                      : "#999",
+                  hoveredItem === "resume"
+                    ? "#0b0b0b"
+                    : "#9f9f9d",
               }}
             >
-              CONTACT
+              RESUME
             </button>
           </div>
 
@@ -293,9 +287,9 @@ export function Header() {
             aria-label="Toggle menu"
           >
             {isMenuOpen ? (
-              <X size={20} style={{ color: "#1a1a1a" }} />
+              <X size={20} style={{ color: "#0b0b0b" }} />
             ) : (
-              <Menu size={20} style={{ color: "#1a1a1a" }} />
+              <Menu size={20} style={{ color: "#0b0b0b" }} />
             )}
           </button>
         </div>
@@ -304,50 +298,53 @@ export function Header() {
         {isMenuOpen && (
           <div className="md:hidden mt-8 pb-4 flex flex-col gap-6">
             <button
-              onClick={(e) => {
-                e.preventDefault();
-                scrollToSection("work");
-              }}
+              onClick={() => handleNavigation("work")}
               className="text-[13px] tracking-[0.02em] hover:opacity-60 transition-opacity uppercase text-left"
               style={{
                 fontFamily: "var(--font-geist-mono)",
                 color:
-                  activeSection === "work" ? "#4D9DE0" : "#999",
+                  activeSection === "work"
+                    ? "#0b0b0b"
+                    : "#9f9f9d",
               }}
             >
               WORK
             </button>
             <button
-              onClick={(e) => {
-                e.preventDefault();
-                scrollToSection("about");
+              onClick={() => handleNavigation("fun")}
+              className="text-[13px] tracking-[0.02em] hover:opacity-60 transition-opacity uppercase text-left"
+              style={{
+                fontFamily: "var(--font-geist-mono)",
+                color:
+                  activeSection === "fun"
+                    ? "#0b0b0b"
+                    : "#9f9f9d",
               }}
+            >
+              FUN
+            </button>
+            <button
+              onClick={() => handleNavigation("about")}
               className="text-[13px] tracking-[0.02em] hover:opacity-60 transition-opacity uppercase text-left"
               style={{
                 fontFamily: "var(--font-geist-mono)",
                 color:
                   activeSection === "about"
-                    ? "#4D9DE0"
-                    : "#999",
+                    ? "#0b0b0b"
+                    : "#9f9f9d",
               }}
             >
               ABOUT
             </button>
             <button
-              onClick={(e) => {
-                e.preventDefault();
-                scrollToSection("contact");
-              }}
+              onClick={() => handleNavigation("resume")}
               className="text-[13px] tracking-[0.02em] hover:opacity-60 transition-opacity uppercase text-left"
               style={{
                 fontFamily: "var(--font-geist-mono)",
-                color:
-                  activeSection === "contact"
-                    ? "#4D9DE0"
-                    : "#999",
+                color: "#9f9f9d",
               }}
             >
-              CONTACT
+              RESUME
             </button>
           </div>
         )}

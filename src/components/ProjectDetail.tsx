@@ -104,8 +104,8 @@ export function ProjectDetail() {
     return (
       <div className="min-h-screen flex items-center justify-center px-8 pt-32">
         <div className="text-center">
-          <h1 className="mb-6" style={{ fontFamily: 'var(--font-geist)', color: '#1a1a1a', fontSize: 'clamp(28px, 4vw, 36px)' }}>Project Not Found</h1>
-          <Link to="/" className="hover:opacity-60 transition-opacity" style={{ fontFamily: 'var(--font-geist)', color: '#4D9DE0', fontSize: 'clamp(15px, 1.5vw, 16px)' }}>
+          <h1 className="mb-6" style={{ fontFamily: 'var(--font-geist)', color: '#0b0b0b', fontSize: 'clamp(28px, 4vw, 36px)' }}>Project Not Found</h1>
+          <Link to="/" className="hover:opacity-60 transition-opacity" style={{ fontFamily: 'var(--font-geist)', color: '#214BEB', fontSize: 'clamp(15px, 1.5vw, 16px)' }}>
             Return to Home
           </Link>
         </div>
@@ -120,7 +120,7 @@ export function ProjectDetail() {
         <Link
           to="/"
           className="inline-flex items-center gap-2 hover:opacity-60 mb-12 transition-opacity"
-          style={{ fontFamily: 'var(--font-geist)', color: '#666', fontSize: 'clamp(15px, 1.5vw, 16px)' }}
+          style={{ fontFamily: 'var(--font-geist)', color: '#9f9f9d', fontSize: 'clamp(15px, 1.5vw, 16px)' }}
         >
           <ArrowLeft size={20} />
           Back to Work
@@ -128,15 +128,15 @@ export function ProjectDetail() {
 
         {/* Project Header */}
         <div className="mb-12">
-          <div className="mb-6" style={{ fontFamily: 'var(--font-geist-mono)', color: '#999', fontSize: 'clamp(12px, 1.1vw, 13px)' }}>
+          <div className="mb-6" style={{ fontFamily: 'var(--font-geist-mono)', color: '#9f9f9d', fontSize: 'clamp(12px, 1.1vw, 13px)' }}>
             {project.category}
           </div>
-          <h1 className="mb-6 leading-[1.2]" style={{ fontFamily: 'var(--font-geist)', color: '#1a1a1a', fontSize: 'clamp(32px, 5vw, 48px)' }}>{project.title}</h1>
-          <p className="leading-[1.6]" style={{ fontFamily: 'var(--font-geist)', color: '#666', fontSize: 'clamp(16px, 1.8vw, 18px)' }}>{project.description}</p>
+          <h1 className="mb-6 leading-[1.2]" style={{ fontFamily: 'var(--font-geist)', color: '#0b0b0b', fontSize: 'clamp(32px, 5vw, 48px)' }}>{project.title}</h1>
+          <p className="leading-[1.6]" style={{ fontFamily: 'var(--font-geist)', color: '#9f9f9d', fontSize: 'clamp(16px, 1.8vw, 18px)' }}>{project.description}</p>
         </div>
 
         {/* Hero Image */}
-        <div className="aspect-video overflow-hidden mb-16 bg-white">
+        <div className="aspect-video overflow-hidden mb-16 bg-[#f9f8f5]">
           <ImageWithFallback
             src={project.image}
             alt={project.title}
@@ -145,47 +145,47 @@ export function ProjectDetail() {
         </div>
 
         {/* Project Details Grid */}
-        <div className="grid md:grid-cols-3 gap-12 mb-20 pb-16 border-b" style={{ borderColor: '#e0e0e0' }}>
+        <div className="grid md:grid-cols-3 gap-12 mb-20 pb-16 border-b border-dotted" style={{ borderColor: '#e3dcd3' }}>
           <div>
-            <h3 className="mb-3" style={{ fontFamily: 'var(--font-geist-mono)', color: '#999', fontSize: 'clamp(13px, 1.2vw, 14px)' }}>Role</h3>
-            <p style={{ fontFamily: 'var(--font-geist)', color: '#1a1a1a', fontSize: 'clamp(15px, 1.5vw, 16px)' }}>{project.role}</p>
+            <h3 className="mb-3" style={{ fontFamily: 'var(--font-geist-mono)', color: '#9f9f9d', fontSize: 'clamp(13px, 1.2vw, 14px)' }}>Role</h3>
+            <p style={{ fontFamily: 'var(--font-geist)', color: '#0b0b0b', fontSize: 'clamp(15px, 1.5vw, 16px)' }}>{project.role}</p>
           </div>
           <div>
-            <h3 className="mb-3" style={{ fontFamily: 'var(--font-geist-mono)', color: '#999', fontSize: 'clamp(13px, 1.2vw, 14px)' }}>Timeline</h3>
-            <p style={{ fontFamily: 'var(--font-geist)', color: '#1a1a1a', fontSize: 'clamp(15px, 1.5vw, 16px)' }}>{project.timeline}</p>
+            <h3 className="mb-3" style={{ fontFamily: 'var(--font-geist-mono)', color: '#9f9f9d', fontSize: 'clamp(13px, 1.2vw, 14px)' }}>Timeline</h3>
+            <p style={{ fontFamily: 'var(--font-geist)', color: '#0b0b0b', fontSize: 'clamp(15px, 1.5vw, 16px)' }}>{project.timeline}</p>
           </div>
           <div>
-            <h3 className="mb-3" style={{ fontFamily: 'var(--font-geist-mono)', color: '#999', fontSize: 'clamp(13px, 1.2vw, 14px)' }}>Tools</h3>
-            <p style={{ fontFamily: 'var(--font-geist)', color: '#1a1a1a', fontSize: 'clamp(15px, 1.5vw, 16px)' }}>{project.tools.join(', ')}</p>
+            <h3 className="mb-3" style={{ fontFamily: 'var(--font-geist-mono)', color: '#9f9f9d', fontSize: 'clamp(13px, 1.2vw, 14px)' }}>Tools</h3>
+            <p style={{ fontFamily: 'var(--font-geist)', color: '#0b0b0b', fontSize: 'clamp(15px, 1.5vw, 16px)' }}>{project.tools.join(', ')}</p>
           </div>
         </div>
 
         {/* Project Content */}
         <div className="space-y-16">
           <div>
-            <h2 className="mb-6" style={{ fontFamily: 'var(--font-geist)', color: '#1a1a1a', fontSize: 'clamp(24px, 3vw, 28px)' }}>Overview</h2>
-            <p className="leading-[1.8]" style={{ fontFamily: 'var(--font-geist)', color: '#666', fontSize: 'clamp(15px, 1.5vw, 16px)' }}>{project.fullDescription}</p>
+            <h2 className="mb-6" style={{ fontFamily: 'var(--font-geist)', color: '#0b0b0b', fontSize: 'clamp(24px, 3vw, 28px)' }}>Overview</h2>
+            <p className="leading-[1.8]" style={{ fontFamily: 'var(--font-geist)', color: '#9f9f9d', fontSize: 'clamp(15px, 1.5vw, 16px)' }}>{project.fullDescription}</p>
           </div>
 
           <div>
-            <h2 className="mb-6" style={{ fontFamily: 'var(--font-geist)', color: '#1a1a1a', fontSize: 'clamp(24px, 3vw, 28px)' }}>The Challenge</h2>
-            <p className="leading-[1.8]" style={{ fontFamily: 'var(--font-geist)', color: '#666', fontSize: 'clamp(15px, 1.5vw, 16px)' }}>{project.challenge}</p>
+            <h2 className="mb-6" style={{ fontFamily: 'var(--font-geist)', color: '#0b0b0b', fontSize: 'clamp(24px, 3vw, 28px)' }}>The Challenge</h2>
+            <p className="leading-[1.8]" style={{ fontFamily: 'var(--font-geist)', color: '#9f9f9d', fontSize: 'clamp(15px, 1.5vw, 16px)' }}>{project.challenge}</p>
           </div>
 
           <div>
-            <h2 className="mb-6" style={{ fontFamily: 'var(--font-geist)', color: '#1a1a1a', fontSize: 'clamp(24px, 3vw, 28px)' }}>The Solution</h2>
-            <p className="leading-[1.8]" style={{ fontFamily: 'var(--font-geist)', color: '#666', fontSize: 'clamp(15px, 1.5vw, 16px)' }}>{project.solution}</p>
+            <h2 className="mb-6" style={{ fontFamily: 'var(--font-geist)', color: '#0b0b0b', fontSize: 'clamp(24px, 3vw, 28px)' }}>The Solution</h2>
+            <p className="leading-[1.8]" style={{ fontFamily: 'var(--font-geist)', color: '#9f9f9d', fontSize: 'clamp(15px, 1.5vw, 16px)' }}>{project.solution}</p>
           </div>
 
           <div>
-            <h2 className="mb-6" style={{ fontFamily: 'var(--font-geist)', color: '#1a1a1a', fontSize: 'clamp(24px, 3vw, 28px)' }}>Outcome</h2>
-            <p className="leading-[1.8]" style={{ fontFamily: 'var(--font-geist)', color: '#666', fontSize: 'clamp(15px, 1.5vw, 16px)' }}>{project.outcome}</p>
+            <h2 className="mb-6" style={{ fontFamily: 'var(--font-geist)', color: '#0b0b0b', fontSize: 'clamp(24px, 3vw, 28px)' }}>Outcome</h2>
+            <p className="leading-[1.8]" style={{ fontFamily: 'var(--font-geist)', color: '#9f9f9d', fontSize: 'clamp(15px, 1.5vw, 16px)' }}>{project.outcome}</p>
           </div>
         </div>
 
         {/* CTA */}
-        <div className="mt-24 pt-16 border-t" style={{ borderColor: '#e0e0e0' }}>
-          <h2 className="mb-12" style={{ fontFamily: 'var(--font-geist)', color: '#1a1a1a', fontSize: 'clamp(24px, 3vw, 28px)' }}>Check out my other projects</h2>
+        <div className="mt-24 pt-16 border-t border-dotted" style={{ borderColor: '#e3dcd3' }}>
+          <h2 className="mb-12" style={{ fontFamily: 'var(--font-geist)', color: '#0b0b0b', fontSize: 'clamp(24px, 3vw, 28px)' }}>Check out my other projects</h2>
           <div className="grid md:grid-cols-2 gap-8">
             {projectsData
               .filter(p => p.id !== project.id)
@@ -197,34 +197,22 @@ export function ProjectDetail() {
                   className="group block"
                   data-cursor-text="VIEW CASE STUDY"
                 >
-                  <div className="aspect-video overflow-hidden mb-6 bg-white">
+                  <div className="aspect-video overflow-hidden mb-6 bg-[#f9f8f5]">
                     <ImageWithFallback
                       src={otherProject.image}
                       alt={otherProject.title}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                   </div>
-                  <div className="flex gap-2 mb-4">
-                    {otherProject.tags.map((tag) => (
-                      <Badge
-                        key={tag}
-                        variant="secondary"
-                        className="px-3 py-1"
-                        style={{
-                          fontFamily: 'var(--font-geist-mono)',
-                          backgroundColor: '#f0f0f0',
-                          color: '#666',
-                          fontSize: 'clamp(11px, 1vw, 12px)',
-                        }}
-                      >
-                        {tag}
-                      </Badge>
-                    ))}
+                  <div className="flex justify-between items-start mb-1">
+                    <h3 style={{ fontFamily: "'Libre Caslon Text', serif", color: '#0b0b0b', fontSize: 'clamp(13px, 1.2vw, 13px)' }}>
+                      {otherProject.title}
+                    </h3>
+                    <div style={{ fontFamily: 'var(--font-geist-mono)', color: '#9f9f9d', fontSize: 'clamp(12px, 1.1vw, 13px)' }}>
+                      CONCEPT 2025
+                    </div>
                   </div>
-                  <h3 className="mb-3" style={{ fontFamily: 'var(--font-geist)', color: '#1a1a1a', fontSize: 'clamp(20px, 2.5vw, 24px)' }}>
-                    {otherProject.title}
-                  </h3>
-                  <p className="leading-[1.6]" style={{ fontFamily: 'var(--font-geist)', color: '#666', fontSize: 'clamp(15px, 1.5vw, 16px)' }}>
+                  <p className="leading-[1.6]" style={{ fontFamily: 'var(--font-geist)', color: '#9f9f9d', fontSize: 'clamp(13px, 1.2vw, 13px)', lineHeight: '13px' }}>
                     {otherProject.description}
                   </p>
                 </Link>

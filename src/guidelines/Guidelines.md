@@ -60,7 +60,3 @@ or initiating processes. They communicate interactivity and should have clear, a
   * Visual Style : Text-only with no border, using primary color
   * Usage : For actions that should be available but not emphasized
 -->
-
-Use Geist as the primary font and Geist mono as a secondary font
-Primary colour #4D9DE0
-Background is #fafafa

@@ -2,100 +2,62 @@ import { motion } from "motion/react";
 
 export function Hero() {
   return (
-    <section className="px-8 pt-[140px] pb-[40px]">
+    <section className="px-8 pt-[200px] pb-[0px] pr-[32px] pl-[32px]">
       <div>
         {/* Main content */}
-        <div className="grid md:grid-cols-[3fr_1fr] gap-16">
-            {/* Left Column - Main Content */}
-            <div className="space-y-3">
-              
-              {/* Main heading with gradient */}
-              <motion.h1
-                className="leading-[1.2] tracking-[-0.02em]"
-                style={{
-                  fontFamily: "var(--font-geist)",
-                  color: "#888888",
-                  fontWeight: "bold",
-                  fontSize: "clamp(32px, 5vw, 56px)",
-                }}
+        <div className="w-full grid md:grid-cols-[6fr_2fr] gap-16 items-start">
+          {/* Left Column - Main Content */}
+          <div>
+            <h1
+              className="leading-[1.2] tracking-[-0.02em] mb-4"
+              style={{
+                fontFamily: "var(--font-geist)",
+                color: "#9f9f9d",
+                fontWeight: "400",
+                fontSize: "clamp(32px, 5vw, 56px)",
+              }}
+            >
+              <motion.span
+                className="block"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
+                transition={{ duration: 0.6, ease: "easeOut", delay: 0 }}
               >
-                I'm Mary, a designer who crafts{" "}
-                <span style={{ color: "#000000" }}>
-                  intuitive and accessible
+                I'm Mary, a{" "}
+                <span style={{ fontFamily: "'Libre Caslon Text', serif", fontStyle: "italic", fontWeight: "700", color: "#0b0b0b" }}>
+                  designer
                 </span>{" "}
-                <span style={{ color: "#000000" }}>
-                  SaaS products
-                </span>
-              </motion.h1>
-              <div>
-                <p
-                  className="mb-2"
-                  style={{
-                    fontFamily: "var(--font-geist)",
-                    color: "#999",
-                    letterSpacing: "0.05em",
-                    fontSize: "clamp(12px, 1.1vw, 13px)",
-                  }}
-                >
-                  Currently at{" "}
-                  <a
-                    href="https://vosyn.ai"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="transition-colors duration-300 hover:opacity-60"
-                    style={{
-                      color: "#000",
-                    }}
-                  >
-                    Vosyn
-                  </a>
-                </p>
-              </div>
+                curious
+              </motion.span>
+              <motion.span
+                className="block"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
+              >
+                about{" "}
+                <span style={{ fontFamily: "'Libre Caslon Text', serif", fontStyle: "italic", fontWeight: "700", color: "#0b0b0b" }}>
+                  interactive software
+                </span>.
+              </motion.span>
+            </h1>
+          </div>
 
-              {/* CTA Button */}
-              <div className="flex gap-4 pt-5">
-                <a
-                  href="#work"
-                  className="inline-block px-6 py-3 transition-all duration-300 hover:opacity-80"
-                  style={{
-                    fontFamily: "var(--font-geist-mono)",
-                    backgroundColor: "#000000",
-                    color: "#ffffff",
-                    textTransform: "uppercase",
-                    letterSpacing: "0.05em",
-                    borderRadius: "9999px",
-                    fontSize: "clamp(13px, 1.2vw, 14px)",
-                  }}
-                >
-                  My work
-                </a>
-                <a
-                  href="#contact"
-                  className="inline-block px-6 py-3 transition-all duration-300 bg-white hover:bg-[#f5f5f5]"
-                  style={{
-                    fontFamily: "var(--font-geist-mono)",
-                    color: "#000000",
-                    textTransform: "uppercase",
-                    letterSpacing: "0.05em",
-                    borderRadius: "9999px",
-                    border: "1px solid #d4d4d4",
-                    fontSize: "clamp(13px, 1.2vw, 14px)",
-                  }}
-                >
-                  Get in touch
-                </a>
-              </div>
+          {/* Right Column - Work History */}
+          <div className="space-y-3">
+            <div className="grid grid-cols-[1fr] gap-4 items-baseline">
+              {/* <span style={{ fontFamily: "var(--font-geist)", color: "#9f9f9d", fontSize: "clamp(11px, 1.1vw, 13px)" }}>2025</span> */}
+              <span style={{ fontFamily: "var(--font-geist)", color: "#0b0b0b", fontSize: "clamp(11px, 1.1vw, 13px)" }}>I help teams create intuitive, inclusive customer experiences through systems-thinking and user insights.</span>
+              {/* <span style={{ fontFamily: "var(--font-geist)", color: "#9f9f9d", fontSize: "clamp(11px, 1.1vw, 13px)" }}>Product Design Intern</span> */}
             </div>
-
-            {/* Right Column - Work History */}
-            <div className="space-y-8 md:pt-12">
-              
+            <div className="grid grid-cols-[1fr] gap-4 items-baseline">
+              {/* <span style={{ fontFamily: "var(--font-geist)", color: "#9f9f9d", fontSize: "clamp(11px, 1.1vw, 13px)" }}>2025</span> */}
+              {/* <span style={{ fontFamily: "var(--font-geist)", color: "#0b0b0b", fontSize: "clamp(11px, 1.1vw, 13px)" }}>Vosyn</span> */}
+              <span style={{ fontFamily: "var(--font-geist)", color: "#9f9f9d", fontSize: "clamp(11px, 1.1vw, 13px)" }}>Product Design Intern at Vosyn</span>
             </div>
           </div>
         </div>
+      </div>
     </section>
   );
 }

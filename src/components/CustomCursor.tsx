@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Eye, Copy } from 'lucide-react';
+import { Eye, Copy, Check, ExternalLink } from 'lucide-react';
 
 export function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
@@ -67,6 +67,12 @@ export function CustomCursor() {
     if (cursorText === 'COPY EMAIL') {
       return <Copy size={getIconSize()} />;
     }
+    if (cursorText === 'EMAIL COPIED') {
+      return <Check size={getIconSize()} />;
+    }
+    if (cursorText.startsWith('VIEW ON ')) {
+      return <ExternalLink size={getIconSize()} />;
+    }
     return <Eye size={getIconSize()} />;
   };
 
@@ -74,12 +80,27 @@ export function CustomCursor() {
     if (cursorText === 'COPY EMAIL') {
       return 'COPY EMAIL';
     }
+    if (cursorText === 'EMAIL COPIED') {
+      return 'EMAIL COPIED';
+    }
+    if (cursorText.startsWith('VIEW ON ')) {
+      return cursorText;
+    }
     return 'VIEW CASE STUDY';
   };
 
   const getWidth = () => {
     if (cursorText === 'COPY EMAIL') {
       return isMouseDown ? '110px' : '130px';
+    }
+    if (cursorText === 'EMAIL COPIED') {
+      return isMouseDown ? '115px' : '135px';
+    }
+    if (cursorText.startsWith('VIEW ON ')) {
+      // Dynamic width based on platform name length
+      const baseWidth = 120;
+      const extraWidth = (cursorText.length - 8) * 6; // Approximate character width
+      return isMouseDown ? `${baseWidth + extraWidth - 20}px` : `${baseWidth + extraWidth}px`;
     }
     return isMouseDown ? '140px' : '165px';
   };
@@ -105,15 +126,15 @@ export function CustomCursor() {
       <div
         className="rounded-full flex items-center justify-center gap-2"
         style={{
-          backgroundColor: '#4D9DE0',
+          backgroundColor: '#214BEB',
           color: '#ffffff',
           fontFamily: 'var(--font-geist-mono)',
           fontSize: getFontSize(),
           transform: cursorText ? 'translate(0, 0)' : 'translate(-50%, -50%)',
           letterSpacing: '0.02em',
-          transition: 'all 0.15s cubic-bezier(0.16, 1, 0.3, 1)',
-          width: cursorText ? getWidth() : '16px',
-          height: cursorText ? getHeight() : '16px',
+          transition: 'width 0.4s cubic-bezier(0.23, 1, 0.32, 1), height 0.4s cubic-bezier(0.23, 1, 0.32, 1), border-radius 0.4s cubic-bezier(0.23, 1, 0.32, 1), transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), font-size 0.3s cubic-bezier(0.23, 1, 0.32, 1)',
+          width: cursorText ? getWidth() : (isMouseDown ? '12px' : '16px'),
+          height: cursorText ? getHeight() : (isMouseDown ? '12px' : '16px'),
           borderRadius: cursorText ? '16px' : '50%',
           padding: '0',
           opacity: 1
@@ -121,8 +142,8 @@ export function CustomCursor() {
       >
         <span style={{
           opacity: cursorText ? 1 : 0,
-          transition: 'opacity 0.4s cubic-bezier(0.4, 0, 0.1, 1)',
-          transitionDelay: cursorText ? '0.15s' : '0s',
+          transition: 'opacity 0.35s cubic-bezier(0.23, 1, 0.32, 1)',
+          transitionDelay: cursorText ? '0.2s' : '0s',
           whiteSpace: 'nowrap',
           display: 'flex',
           alignItems: 'center',
