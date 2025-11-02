@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Eye, Copy, Check, ExternalLink } from 'lucide-react';
+import { Eye, Copy, Check, ExternalLink, Gamepad2 } from 'lucide-react';
 
 export function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
@@ -73,6 +73,9 @@ export function CustomCursor() {
     if (cursorText.startsWith('VIEW ON ')) {
       return <ExternalLink size={getIconSize()} />;
     }
+    if (cursorText === 'PLAY GAME') {
+      return <Gamepad2 size={getIconSize()} />;
+    }
     return <Eye size={getIconSize()} />;
   };
 
@@ -85,6 +88,9 @@ export function CustomCursor() {
     }
     if (cursorText.startsWith('VIEW ON ')) {
       return cursorText;
+    }
+    if (cursorText === 'PLAY GAME') {
+      return 'PLAY GAME';
     }
     return 'VIEW CASE STUDY';
   };
@@ -101,6 +107,9 @@ export function CustomCursor() {
       const baseWidth = 120;
       const extraWidth = (cursorText.length - 8) * 6; // Approximate character width
       return isMouseDown ? `${baseWidth + extraWidth - 20}px` : `${baseWidth + extraWidth}px`;
+    }
+    if (cursorText === 'PLAY GAME') {
+      return isMouseDown ? '100px' : '118px';
     }
     return isMouseDown ? '140px' : '165px';
   };

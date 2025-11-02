@@ -566,6 +566,10 @@
     min-height: 100vh;
   }
 
+  .w-1\/2 {
+    width: 50%;
+  }
+
   .w-\[150px\] {
     width: 150px;
   }
