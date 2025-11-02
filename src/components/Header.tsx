@@ -112,7 +112,10 @@ export function Header() {
 
   useEffect(() => {
     // Update active section based on current route
-    if (location.pathname === "/about") {
+    if (location.pathname.startsWith("/project/")) {
+      // No active section on project detail pages
+      setActiveSection("");
+    } else if (location.pathname === "/about") {
       setActiveSection("about");
     } else if (location.pathname === "/fun") {
       setActiveSection("fun");
@@ -207,8 +210,7 @@ export function Header() {
                     damping: 30,
                   }}
                   style={{
-                    top: "50%",
-                    transform: "translateY(-50%)",
+                    top: 0,
                   }}
                 />
               )}
